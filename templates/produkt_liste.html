@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Produkte</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+    <h1>Produkte (über Template)</h1>
+    <p>
+        <ul>
+
+        {% for prod in products %}
+
+            <li>
+                <a href="/produkte/{{ prod }}" {% if prod%2==0 %} class="angebot"{% endif %}>Produkt {{ prod }}</a>
+                {% if prod%2==0 %}
+                    Heute im Angebot
+                {% endif %}
+            </li>
+
+        {% endfor %}
+
+    </ul>
+    </p>
+</body>
+</html>

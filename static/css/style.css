@@ -1,0 +1,14 @@
+h2 { color: brown; font-family: Arial; }
+
+#details {
+    background-color: skyblue;
+}
+
+.wichtig {
+    color: blue;
+}
+
+.angebot {
+    background-color: red;
+}
+
