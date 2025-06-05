@@ -3,6 +3,6 @@
 <!-- ...indem der "Block" namens "inhalt" dort durch diesen konkreten Inhalt ersetzt wird -->
 {% block inhalt %}
     <p>
-        User {{ user }} mit Passwort {{ pw }} wurde angelegt!
+        User {{ user.username }} mit Passwort {{ user.password }} wurde angelegt!
     </p>
 {% endblock %}

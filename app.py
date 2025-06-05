@@ -1,4 +1,6 @@
 from flask import Flask, request, render_template
+from entity import User, Product
+from repository import save, find_all, find_by_id
 
 app = Flask(__name__)
 
@@ -17,28 +19,25 @@ def user_form():
 
 @app.route('/do_user_registrierung', methods=['POST'])
 def user_anlegen():
-    username = request.form.get("username_")  # alternative Syntax: request.form['username_']
-    password = request.form.get("password_")
-    return render_template('user_angelegt.html', user=username, pw=password)
+    neuer_user = User(request.form.get("username_"), request.form.get("password_"))
+    save("users", neuer_user.username, neuer_user)
+    return render_template('user_angelegt.html', user=neuer_user)
 
 
 @app.route("/produkte")
 def produkte_anzeigen():
 
     # z. B. aus Datenbank die Produkte/Kategorien/... holen
-    produkt_ids = (1, 2, 3, 77, 432, 9, 200, 89756434, 45637)
+    produkte = find_all("products")
 
-    return render_template('produkt_liste.html', products=produkt_ids)
+    return render_template('produkt_liste.html', products=produkte)
 
 
 @app.route("/produkte/<produkt_id>")
 def produkt_details(produkt_id):
-    detail = f"""
-    <h1>Produkt {produkt_id}</h1>
-    <p>Titel: Produkt_{produkt_id}</p>
-    <p>Preis: {produkt_id} Euro</p>
-    """
-    return detail
+    # über Repository (import!) aus Datenbank auslesen
+    produkt = find_by_id("products", int(produkt_id))
+    return render_template("produkt_details.html", product=produkt)
 
 
 @app.route('/test0815')

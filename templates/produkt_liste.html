@@ -1,27 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Produkte</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-</head>
-<body>
+{%  extends "base.html" %}
+
+{% block inhalt %}
+
     <h1>Produkte (über Template)</h1>
-    <p>
-        <ul>
 
-        {% for prod in products %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
 
-            <li>
-                <a href="/produkte/{{ prod }}" {% if prod%2==0 %} class="angebot"{% endif %}>Produkt {{ prod }}</a>
-                {% if prod%2==0 %}
-                    Heute im Angebot
-                {% endif %}
-            </li>
+    {% for prod in products %}
+      <tr>
+          <th scope="row">{{ prod.product_id }}</th>
+          <td><a href="/produkte/{{ prod.product_id }}">{{ prod.title }}</a></td>
+          <td>{{ prod.description }}</td>
+          <td>{{ prod.price }} {% if prod.is_sale==True %} <span class="badge rounded-pill text-bg-dark">Sale!</span>{% endif %}</td>
+        </tr>
 
-        {% endfor %}
+    {% endfor %}
 
-    </ul>
-    </p>
-</body>
-</html>
+      </tbody>
+    </table>
+
+{% endblock %}
