@@ -2,6 +2,17 @@
 
 Stand 12.06.2025
 
+## Mögliche Fehlermeldung "Cannot find reference 'ObjectId' in imported module bson"
+
+Falls Sie die Fehlermeldung "Cannot find reference 'ObjectId' in imported module bson" bekommen müssen Sie in der 
+Konsole (Icon *>_* bzw. *Terminal* in PyCharm unten links) folgende drei Befehle ausführen:
+
+```
+pip uninstall bson
+pip uninstall pymongo
+pip install pymongo
+```
+
 ## Session
 
 Eine Session in Webanwendungen ist ein temporärer Speicherbereich, der es ermöglicht, Benutzerdaten
