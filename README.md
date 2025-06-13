@@ -1,6 +1,101 @@
 # AGWI Beispielprojekt
 
-Stand 05.06.2025
+Stand 12.06.2025
+
+## Session
+
+Eine Session in Webanwendungen ist ein temporärer Speicherbereich, der es ermöglicht, Benutzerdaten
+(das heißt des selben Browser-Fensters) über mehrere HTTP-Anfragen hinweg zu speichern.
+Zum Beispiel, ob ein Nutzer eingeloggt ist oder welche Artikel im Warenkorb liegen.
+
+### Technische Voraussetzungen
+
+In der Webanwendung gibt es dazu eine Dictionary-Variable namens `session`.
+Diese ist mit einem zusätzlichen `from flask import session` verfügbar.
+Außerdem muss eine Variable `app.secret_key` außerhalb der Methodendefinitionen mit einem String als "Passwort"
+gesetzt werden. Mit diesem *secret_key* werden die Session-Daten von Flask verschlüsselt.
+
+### Beispiele
+
+Im Python-Code kann Sie zum Lesen und Schreiben wie folgt genutzt werden:
+
+```python
+session['key'] = value   # Value der Session unter dem key hinzufügen...
+value_ = session['key']  # ...und an anderer Stelle wieder lesen; alternative Syntax: value_ = session.get('key')
+```
+
+Diese Variable ist ebenfalls in den Templates verfügbar und nutzbar.
+
+Beispiel für die Nutzung von `session` im Beispiel:
+- In [app.py](app.py) (Zeile 67) 
+  ```python
+  session["eingeloggter_user"] = user_from_db
+  ```
+- In [start.html](start.html) (Zeilen 8 - 10)
+  ```html
+  {% if 'eingeloggter_user' in session %}
+    <p>Du bis eingeloggt als {{ session.get("eingeloggter_user").username }}.</p>
+  {% endif %}
+  ```
+
+## Datenbankanbindung und neues Repository
+
+### Repository 
+
+Das bisherige Repository [repository.py](repository.py) wird nicht mehr verwendet.
+Es wurde durch die generische Klasse `Repository[T]` aus [repository_db.py](repository_db.py) ersetzt.
+
+Von dieser Klasse wird für jede *Dataclass* (Geschäftsobjekte aus [entity.py](entity.py)) ein
+Repository-Objekt angelegt, zum Beispiel allgemein oben in der [app.py](app.py):
+
+```python
+user_repo    = Repository[User](db["users"], User, primary_key="username")
+product_repo = Repository[Product](db["products"], Product, primary_key="product_id")
+```
+
+Parameter:
+- `db["users"]`: Legt die *Collection* in der Datenbank für die einzelnen Dokumente fest
+- `User`: Wiederholt den Datentyp, der für dieses Repository gesetzt wurde
+- `primary_key=username`: Gibt des Namen des Attributs des *Primärschlüssels* an (diese Attributwerte definieren ein Objekt eindeutig)
+
+Repository-Methoden am Beispiel des `product_repo`:
+- `product_repo.save(produkt_objekt)`: Speichert ein neues Produkt
+- `product = product_repo.find_by_id(4711)`: Lädt das Produkt mit der `product_id` 4711 
+- `products = product_repo.find_all()`: Lädt alle Produkte als Liste `products`
+- `products = product_repo.find({"title" : "Jeans"})`: Lädt alle Produkte mit dem Titel `Jeans`
+- Bei den `find_all()` und `find()` können optional noch die Argument `skip=x` und `limit=y` gesetzt werden,
+  dadurch werden die ersten `x` Produkte ausgelassen und anschließend nur `y` Produkte geladen
+- `product_repo.delete_by_id(4711)`: Löscht das Produkt mit der `product_id`4711
+- `product_repo.update_by_id(4711, neues_produkt_objekt)`: ersetzt das bestehende Produkt durch das neue
+
+Zu Speichern und Lesen, auch mit Abfragebedingungen und Skip/Limit, finden Sie Beispiele in diesem Projekt.
+
+### Datenbank
+
+Für die Klasse `Repository[T]` ist eine aktive Datenbankverbindung notwendig.
+
+Hierfür wurde für alle AGWI-Studierenden eine persönliche Datenbank auf einem Laborserver eingerichtet.
+Die Zugangsdaten dazu lauten allgemein:
+
+- Username: Ihr NDS-Account-Kürzel (z. B. `abc22222`)
+- Passwort: Standardmäßig der Username mit Zusatz `_secret` (z. B. `abc22222_secret`)
+- Datenbankname: Ihr NDS-Account-Kürzel (z. B. `abc22222`)
+
+In [app.py](app.py) erfolgt die Verbindung zur Datenbank über die Klasse `MongoClient` mit den entsprechenden
+Parameter (siehe Zeile 15 ff.). Bitte ersetzen Sie das `abc22222` dort durch Ihr NDS-Account-Kürzel.
+
+> **Wichtige Hinweise:**
+> - Die Datenbank ist nur aus dem Netzwerk der OTH erreichbar. **Es ist deshalb immer eine aktive VPN-Verbindung notwendig!***
+> - Die Datenbank steht nur für Lehrzwecke bis zum Ende des Semesters zur Verfügung.
+> - Speichern Sie keine personenbezogen Daten, sondern nur Testdaten.
+> - Mit Ausfällen und Datenverlust ist zu rechnen.
+
+Falls Sie Daten in der Datenbank direkt einsehen, ändern oder löschen möchten, können Sie einen Datenbank-GUI-Client verwenden.
+*PyCharm* stellt dazu eine sehr einfaches Tool zur Verfügung (wie in der Vorlesung eingerichtet).
+Die Verbindungsparameter dazu lauten (bitte durch Ihre Zugangsdaten oben ersetzen): 
+
+![Datenbankparameter](database.png)
+
 
 ## Dataclasses, Repositories, Listen und Dictionaries (Maps); Bootstrap
 

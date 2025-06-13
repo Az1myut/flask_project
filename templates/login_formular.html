@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block inhalt %}
+    <h2>Login</h2>
+
+    <!-- Quelle: https://getbootstrap.com/docs/5.3/forms/overview/ -->
+    <form method="post" action="do_login">
+  <div class="mb-3">
+    <label for="usernameLabel" class="form-label">Username:</label>
+    <input name="username" type="text" class="form-control" id="usernameLabel" aria-describedby="usernameHelp">
+  </div>
+  <div class="mb-3">
+    <label for="passwordLabel" class="form-label">Passwort:</label>
+    <input name="password" type="password" class="form-control" id="passwordLabel">
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+{% endblock %}

@@ -1,3 +1,9 @@
+"""
+ALT !!!!!!!!!!!!!!!
+
+WIRD NICHT MEHR GEBRAUCHT !!!!!!
+"""
+
 from entity import Product
 
 datenbank = {}
