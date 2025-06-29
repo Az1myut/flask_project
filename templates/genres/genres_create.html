@@ -1,0 +1,16 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+<div class="card p-4">
+  <h3 class="text-center mb-4 text-primary">Create New Genre</h3>
+  <form method="POST" action="{{url_for('genres_create')}}">
+    <div class="mb-3">
+      <label for="name" class="form-label">Genre Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Action, Drama, Comedy" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Create Genre</button>
+  </form>
+  
+</div>
+<a href="{{ url_for('genres_list') }}" class="btn btn-secondary ms-2">Back to List</a>
+{% endblock %}

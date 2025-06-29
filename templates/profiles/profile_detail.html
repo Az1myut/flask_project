@@ -1,0 +1,48 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow rounded">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Profile Details</h4>
+      </div>
+      <div class="card-body">
+  
+       
+        <div class="mb-4">
+          <h5 class="text-secondary">Contact Information</h5>
+          <p><strong>Email:</strong> {{ profile.email or "Not provided" }}</p>
+          <p><strong>Mobile Number:</strong> {{ profile.mobile_number or "Not provided" }}</p>
+        </div>
+  
+  
+       
+        <div class="mb-3">
+          
+          <h5 class="text-secondary">Address</h5>
+          {% if adress %}
+          <p><strong>Street:</strong> {{ adress.street }}</p>
+            <p><strong>House Number:</strong> {{ adress.house_number}}</p>
+            <p><strong>Postal Code:</strong> {{ adress.postal_code }}</p>
+            <p><strong>Country:</strong> {{ adress.country }}</p>
+            {% else %}
+            <p><strong>Street:</strong> {{ "Not provided" }}</p>
+            <p><strong>House Number:</strong> {{ "Not provided" }}</p>
+            <p><strong>Postal Code:</strong> {{ "Not provided" }}</p>
+            <p><strong>Country:</strong> {{  "Not provided" }}</p>
+          {% endif %}
+          
+        </div>
+
+        <div class="text-end">
+            <a href="{{ url_for('profile_update', id=profile.id|string) }}" class="btn btn-primary">
+              Update Profile
+            </a>
+          </div>
+        
+        
+      </div>
+    </div>
+  </div>
+{% endblock content %}

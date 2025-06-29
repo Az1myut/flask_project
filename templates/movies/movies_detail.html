@@ -1,0 +1,83 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+
+    <div class="col-md-5 text-center">
+      <img src="{{ url_for('static', filename=movie.image_url.replace('static/', '')) }}"
+           alt="{{ movie.title }}"
+           class="img-fluid rounded shadow"
+           style="max-height: 500px; object-fit: contain; background-color: #f8f9fa; padding: 10px;">
+    </div>
+
+
+    <div class="col-md-7">
+      <h2 class="mb-3">{{ movie.title }}</h2>
+      <p><strong>⭐ Rating:</strong> {{ movie.rating }}</p>
+      <p><strong>🕒 Runtime:</strong> {{ movie.runtime_in_minutes }} minutes</p>
+      <p><strong>📅 Released:</strong> {{ movie.released_in.strftime('%d.%m.%Y') }}</p>
+      <p><strong>🎭 Genres:</strong>
+        {% for genre in genres %}
+          <span class="badge bg-secondary">{{ genre.name }}</span>
+        {% endfor %}
+      </p>
+      <p>
+      <a href="{{ url_for('favorites_add', id=movie.id|string)}}" class="btn btn-sm btn-primary">
+        Add to favorites
+      </a>
+    </p>
+    <div class="d-flex align-items-center mt-3">
+      <!-- Heart icon as a clickable link -->
+      <a href="{{ url_for('like', id=movie.id|string) }}" class="text-danger me-2" style="font-size: 1.5rem;">
+        <i class="fas fa-heart"></i>
+      </a>
+      <!-- Display number of likes -->
+      <span class="badge bg-danger text-white shadow-sm px-3 py-2 rounded-pill fw-bold">
+        {{ likes_count }} Likes
+      </span>
+    </div>
+      <hr>
+      <p class="mt-4">{{ movie.description }}</p>
+
+      <a href="{{ url_for('mainpage') }}" class="btn btn-outline-primary mt-4">← Back to Home</a>
+     
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <h4 class="mb-4">Comments</h4>
+
+  <!-- Loop over existing comments -->
+  {% for comment in comments %}
+  <div class="mb-3 p-3 border rounded bg-light d-flex justify-content-between align-items-start">
+    <div>
+      <h6 class="mb-1 text-primary">{{ comment.author_name }}</h6>
+      <p class="mb-0">{{ comment.content }}</p>
+    </div>
+    {% if session.eingeloggter_username==comment.author_name %}
+    <form action="{{ url_for('delete_comment', comment_id=comment.id|string, id=movie.id|string) }}" method="POST">
+      <button type="submit" class="btn btn-sm btn-danger ms-3">
+        <i class="bi bi-trash"></i> Delete
+      </button>
+    </form>
+    {% endif %}
+    
+  </div>
+{% endfor %}
+      
+      
+
+
+
+  <div class="mt-4">
+      <form method="POST" action="{{url_for('add_comment', id=movie.id|string)}}">
+          <div class="mb-3">
+              <label for="content" class="form-label">Comment</label>
+              <textarea name="content" class="form-control" id="content" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Add Comment</button>
+      </form>
+  </div>
+</div>
+{% endblock %}

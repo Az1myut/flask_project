@@ -1,0 +1,69 @@
+{% extends "layout/base.html" %}
+{% block content %}
+
+
+<div class="container mt-5">
+  <div class="card shadow rounded">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Update Profile</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('profile_update', id=profile.id|string) }}">
+        
+ 
+
+      
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" 
+                 value="{{ profile.email or '' }}" placeholder="Enter your email">
+        </div>
+
+   
+        <div class="mb-3">
+          <label for="mobile_number" class="form-label">Mobile Number</label>
+          <input type="text" class="form-control" id="mobile_number" name="mobile_number" 
+                 value="{{ profile.mobile_number or '' }}" placeholder="Enter mobile number">
+        </div>
+
+        <hr>
+
+        <h5 class="text-secondary">Address</h5>
+
+     
+        <div class="mb-3">
+          <label for="street" class="form-label">Street</label>
+          <input type="text" class="form-control" id="street" name="street" 
+                 value="{{ adress.street if adress else '' }}" placeholder="Street name">
+        </div>
+
+       
+        <div class="mb-3">
+          <label for="house_number" class="form-label">House Number</label>
+          <input type="number" class="form-control" id="house_number" name="house_number" 
+                 value="{{ adress.house_number if adress else '' }}" placeholder="House number">
+        </div>
+
+        
+        <div class="mb-3">
+          <label for="postal_code" class="form-label">Postal Code</label>
+          <input type="text" class="form-control" id="postal_code" name="postal_code" 
+                 value="{{ adress.postal_code if adress else '' }}" placeholder="Postal code">
+        </div>
+
+       
+        <div class="mb-4">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" class="form-control" id="country" name="country" 
+                 value="{{ adress.country if adress else '' }}" placeholder="Country">
+        </div>
+
+ 
+        <div class="text-end">
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

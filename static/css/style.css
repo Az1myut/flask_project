@@ -1,14 +1,88 @@
-h2 { color: brown; font-family: Arial; }
-
-#details {
-    background-color: skyblue;
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* Schönere Schriftart */
+}
+body {
+  /* Ein sehr heller, neutraler Hintergrund, damit die Karte hervorsticht */
+  background-color: #f8f9fa; 
+  font-family: 'Poppins', sans-serif;
 }
 
-.wichtig {
-    color: blue;
+.login-container-wrapper {
+  /* Zentriert die gesamte Karte auf der Seite */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
-.angebot {
-    background-color: red;
+.login-card {
+  /* Entfernt den Standard-Rand und fügt abgerundete Ecken hinzu */
+  border: 0;
+  border-radius: 1rem; /* Stärkere Abrundung */
 }
 
+.login-image-side {
+  /* Das Bild für die linke Seite */
+  background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
+  background-size: cover;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.form-control {
+  /* Leicht angepasste Formularfelder */
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.btn-login {
+  /* Der Haupt-Login-Button */
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  font-weight: 700; /* Fettgedruckt für mehr Gewicht */
+}
+
+.register-link a {
+  /* Styling für den Registrierungslink */
+  color: #0d6efd; /* Standard Bootstrap-Blau */
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.login-card {
+    border: 0;
+    border-radius: 1rem; /* Abgerundete Ecken für einen modernen Look */
+}
+.form-control-lg {
+    border-radius: 0.75rem; /* Passende Abrundung für die Felder */
+}
+.btn-lg {
+    padding: 0.8rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85); 
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #ffffff;
+}
+
+
+.navbar-text-custom {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  border-radius: 50%; 
+  border: 2px solid #ffffff; 
+  object-fit: cover; 
+
+}

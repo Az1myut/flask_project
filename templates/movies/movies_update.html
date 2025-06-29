@@ -1,0 +1,56 @@
+{% extends "layout/base.html" %}
+{% block content %}
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">Update Movie</h2>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('movies_update', id=movie.id|string) }}">
+      
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ movie.title }}" required>
+      </div>
+  
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="4" required>{{ movie.description }}</textarea>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label for="runtime" class="form-label">Runtime (minutes)</label>
+          <input type="number" class="form-control" id="runtime" name="runtime_in_minutes" value="{{ movie.runtime_in_minutes }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <input type="number" class="form-control" step="0.1" id="rating" name="rating" value="{{ movie.rating }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="released_in" class="form-label">Release Date</label>
+          <input type="date" class="form-control" id="released_in" name="released_in"
+                 value="{{ movie.released_in.date().strftime('%Y-%m-%d') }}" required>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="genres" class="form-label">Genres</label><br>
+        {% for genre in genres %}
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="genre{{ loop.index }}" name="genres"
+                   value="{{ genre.id }}"
+                   {% if genre.id in movie.genres %}checked{% endif %}>
+            <label class="form-check-label" for="genre{{ loop.index }}">{{ genre.name }}</label>
+          </div>
+        {% endfor %}
+      </div>
+  
+      <div class="mb-3">
+        <label for="image" class="form-label">Movie Image</label>
+        <input class="form-control" type="file" id="image" name="image">
+      </div>
+  
+      <button type="submit" class="btn btn-success">Update Movie</button>
+      <a href="{{ url_for('movies_list') }}" class="btn btn-primary ms-2">Back to List</a>
+    </form>
+  </div>
+  {% endblock %}

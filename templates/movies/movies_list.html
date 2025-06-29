@@ -1,0 +1,40 @@
+ {% extends "layout/base.html" %} 
+{% block content %}
+
+
+
+<div class="container mt-5">
+  <h2 class="mb-4">Movies</h2>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Title</th>
+        <th>Rating</th>
+        <th>Release Date</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for movie in movies %}
+      <tr>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.rating }}</td>
+        <td>{{ movie.released_in.strftime('%Y-%m-%d') }}</td>
+        <td>
+          <a href="{{ url_for('movies_update', id=movie.id|string) }}" class="btn btn-primary btn-sm">Update</a>
+        </td>
+        <td>
+          <a href="{{ url_for('movies_delete', id=movie.id|string) }}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{{ url_for('movies_create') }}" class="btn btn-success mt-3">Create Movie</a>
+
+</div>
+</div>
+{% endblock content%}

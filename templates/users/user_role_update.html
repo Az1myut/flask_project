@@ -1,0 +1,35 @@
+{% extends "layout/base.html" %}
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="card shadow rounded">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Change User Role</h4>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{{ url_for('users_role_update', id=profile.id|string) }}">
+          
+          <div class="mb-3">
+            <label class="form-label"><strong>Username:</strong></label>
+            <p class="form-control-plaintext">{{ user.username }}</p>
+          </div>
+  
+          <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select class="form-select" id="role" name="role" required>
+              <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+              <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+              <option value="superuser" {% if user.role == 'superuser' %}selected{% endif %}>Superuser</option>
+            </select>
+          </div>
+  
+          <div class="text-end">
+            <button type="submit" class="btn btn-success">Update Role</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

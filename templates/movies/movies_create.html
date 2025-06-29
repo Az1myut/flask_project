@@ -1,0 +1,53 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Create Movie</h2>
+  <form method="POST" action="{{ url_for('movies_create') }}" enctype="multipart/form-data">
+    
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="runtime" class="form-label">Runtime (minutes)</label>
+      <input type="number" class="form-control" id="runtime" name="runtime_in_minutes" required min="0">
+    </div>
+
+    <div class="mb-3">
+      <label for="released_in" class="form-label">Release Date</label>
+      <input type="date" class="form-control" id="released_in" name="released_in" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="rating" class="form-label">Rating (0–10)</label>
+      <input type="number" step="0.1" max="10" min="0" class="form-control" id="rating" name="rating" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Upload Image</label>
+      <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Genres</label>
+      <div class="form-check">
+        {% for genre in genres %}
+          <input class="form-check-input" type="checkbox" name="genres" value="{{ genre.id }}" id="genre{{ loop.index }}">
+          <label class="form-check-label" for="genre{{ loop.index }}">{{ genre.name }}</label><br>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create Movie</button>
+    <a href="{{ url_for('movies_list') }}" class="btn btn-primary ms-2">Back to List</a>
+  </form>
+</div>
+{% endblock %}
