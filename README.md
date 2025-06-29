@@ -1,6 +1,3 @@
-
-
-```markdown
 # Flask Movie & User Management App
 
 Dies ist eine voll funktionsfähige Web-Anwendung, die mit dem Python-Framework **Flask** und **MongoDB** als Datenbank erstellt wurde. Sie demonstriert fortgeschrittene Web-Entwicklungsprinzipien, einschließlich eines mehrstufigen Berechtigungssystems, Benutzer-Interaktionen und zentralisiertem Content-Management über ein Admin-Panel.
