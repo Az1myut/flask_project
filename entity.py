@@ -81,7 +81,7 @@ class Like:
 class Comment:        
     content: str
     author_id: ObjectId #id von zugehoerigen User, der kommentriert hat
-    movie_id: ObjectId #id von zugehoerigen Article
+    movie_id: ObjectId #id von zugehoerigen Movie
     author_name : str
     created_at: datetime
     id : Optional[ObjectId] = None
